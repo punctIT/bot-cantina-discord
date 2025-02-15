@@ -33,11 +33,15 @@ cantina_role_id=1305831673539203082
 async def meniu(ctx, option=None):
     if ctx.author.name == "logicavietii":
         await ctx.send(f"{ctx.author.mention}, din fericire tu nu ai drepturi")
-        return  # Oprește execuția comenzii pentru acest utilizator
+        return  
 
     await ctx.message.delete()
     if option == 'gau': 
-        await ctx.send("Îți trimit un screenshot ... Așteaptă un moment!" ,delete_after=5)
+        if not link_exista(meniuGauURL+formatted_date + '.pdf'):
+            await ctx.send("Eroare: Fișierul PDF nu există!", delete_after=5)
+            return
+        
+        await ctx.send("Îți trimit un screenshot ... Așteaptă un moment!", delete_after=5)
         screenshot_paths = take_screenshots_from_pdf(meniuGauURL+formatted_date + '.pdf')
         if screenshot_paths:
             for path in screenshot_paths:
@@ -49,6 +53,20 @@ async def meniu(ctx, option=None):
     else:
         await ctx.send('Comanda nu este validă!',delete_after=5)
         
+def link_exista(url):
+    try:
+        response = requests.head(url, timeout=10)
+        if response.status_code == 200:
+            return True  # Link valid
+        elif response.status_code == 404:
+            print("⚠️ Linkul nu există (404)")
+            return False  # Link invalid
+        else:
+            print(f"⚠️ Serverul a răspuns cu codul {response.status_code}")
+            return False
+    except requests.RequestException as e:
+        print(f"❌ Eroare la verificarea linkului: {e}")
+        return False
 
 def take_screenshots_from_pdf(pdf_url):
     try:
