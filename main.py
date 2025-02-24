@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 import asyncio
 
 # Token-ul bot-ului (înlocuiește cu token-ul tău)
-TOKEN = 'MTMzOTk0NjM3NTQ0NTc0NTc3Ng.G9kqir.yeKY4g-8Fw9ifaBnkR44a55yRdxpouFBfpLvxQ'
+TOKEN = '*'
 
 # Creează bot-ul
 intents = discord.Intents.default()
