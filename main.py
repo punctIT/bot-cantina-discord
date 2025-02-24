@@ -6,7 +6,7 @@ import os
 from datetime import datetime, timedelta
 import asyncio
 
-# Token-ul bot-ului (înlocuiește cu token-ul tău)
+# Token-ul bot-ului 
 TOKEN = '*'
 
 # Creează bot-ul
